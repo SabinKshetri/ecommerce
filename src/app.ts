@@ -22,6 +22,6 @@ app.use("/admin/", categoryRoute);
 app.use("/customer/cart", addTocartRoute);
 
 app.listen(PORT, () => {
-  categoryController.seedCategory();
+  // categoryController.seedCategory();
   console.log(`Server has Started in ${PORT}`);
 });
