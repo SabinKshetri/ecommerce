@@ -21,7 +21,7 @@ app.use("", userRoute);
 app.use("/admin/product", adminProductRoute);
 app.use("/admin/", categoryRoute);
 app.use("/customer/cart", addTocartRoute);
-app.use("/customer/order", orderRoute);
+app.use("/order", orderRoute);
 
 app.listen(PORT, () => {
   categoryController.seedCategory();
