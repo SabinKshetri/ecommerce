@@ -1,14 +1,28 @@
-interface Props{
-    type:string
-}
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Link } from "react-router-dom";
+import { Props, UserDataType } from "../../../pages/auth/types";
 
+const Form: React.FC<Props> = ({ type, onSubmit }) => {
+  const [userData, setUserData] = useState<UserDataType>({
+    email: "",
+    username: "",
+    password: "",
+  });
 
-const Form:React.FC<Props> = ({type}) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    onSubmit(userData);
+  };
   return (
     <>
-      {/* Pages: Sign In: Boxed */}
-
-      {/* Page Container */}
       <div
         id="page-container"
         className="mx-auto flex min-h-dvh w-full min-w-[320px] flex-col bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
@@ -37,7 +51,8 @@ const Form:React.FC<Props> = ({type}) => {
                   <span>E-SHOP</span>
                 </h1>
                 <h2 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Welcome, please sign in to your dashboard
+                  Welcome, please {type === "register" ? "SignUp" : "SignIn"} to
+                  your dashboard
                 </h2>
               </header>
               {/* END Header */}
@@ -45,10 +60,7 @@ const Form:React.FC<Props> = ({type}) => {
               {/* Sign In Form */}
               <div className="flex flex-col overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800 dark:text-gray-100">
                 <div className="grow p-5 md:px-16 md:py-12">
-                  <form
-                    onSubmit={(e) => e.preventDefault()}
-                    className="space-y-6"
-                  >
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-1">
                       <label htmlFor="email" className="text-sm font-medium">
                         Email
@@ -57,10 +69,26 @@ const Form:React.FC<Props> = ({type}) => {
                         type="email"
                         id="email"
                         name="email"
+                        onChange={handleChange}
                         placeholder="Enter your email"
                         className="block w-full rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500/50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-blue-500"
                       />
                     </div>
+                    {type === "register" && (
+                      <div className="space-y-1">
+                        <label htmlFor="email" className="text-sm font-medium">
+                          Username
+                        </label>
+                        <input
+                          type="text"
+                          id="username"
+                          name="username"
+                          onChange={handleChange}
+                          placeholder="Enter your username"
+                          className="block w-full rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500/50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-blue-500"
+                        />
+                      </div>
+                    )}
                     <div className="space-y-1">
                       <label htmlFor="password" className="text-sm font-medium">
                         Password
@@ -68,6 +96,7 @@ const Form:React.FC<Props> = ({type}) => {
                       <input
                         type="password"
                         id="password"
+                        onChange={handleChange}
                         name="password"
                         placeholder="Enter your password"
                         className="block w-full rounded-lg border border-gray-200 px-5 py-3 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring focus:ring-blue-500/50 dark:border-gray-600 dark:bg-gray-800 dark:placeholder-gray-400 dark:focus:border-blue-500"
@@ -108,20 +137,34 @@ const Form:React.FC<Props> = ({type}) => {
                             clipRule="evenodd"
                           />
                         </svg>
-                        <span>Sign In</span>
+                        <span>
+                          {type === "Register" ? "SignUp" : "Sign In"}
+                        </span>
                       </button>
                     </div>
                   </form>
                 </div>
-                <div className="grow bg-gray-50 p-5 text-center text-sm md:px-16 dark:bg-gray-700/50">
-                  Don’t have an account yet?{" "}
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300"
-                  >
-                    Sign up
-                  </a>
-                </div>
+                {type === "register" ? (
+                  <div className="grow bg-gray-50 p-5 text-center text-sm md:px-16 dark:bg-gray-700/50">
+                    Already have account ?{" "}
+                    <Link
+                      to="/login"
+                      className="font-medium text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300"
+                    >
+                      Sign In
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="grow bg-gray-50 p-5 text-center text-sm md:px-16 dark:bg-gray-700/50">
+                    Don’t have an account yet?{" "}
+                    <Link
+                      to="/register"
+                      className="font-medium text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300"
+                    >
+                      Sign up
+                    </Link>
+                  </div>
+                )}
               </div>
               {/* END Sign In Form */}
             </section>
