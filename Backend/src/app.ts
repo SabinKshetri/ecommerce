@@ -8,9 +8,16 @@ import categoryController from "./controller/categoryController";
 import categoryRoute from "./routes/categoryRoutes";
 import addTocartRoute from "./routes/cartRoutes";
 import orderRoute from "./routes/orderRoutes";
+import cors from "cors";
 const app: Application = express();
 const PORT: number = 3000;
 dotenv.config();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json());
 

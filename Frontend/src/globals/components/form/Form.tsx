@@ -17,7 +17,7 @@ const Form: React.FC<Props> = ({ type, onSubmit }) => {
     });
   };
 
-  const handleSubmit = (event: FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit(userData);
   };
@@ -27,12 +27,9 @@ const Form: React.FC<Props> = ({ type, onSubmit }) => {
         id="page-container"
         className="mx-auto flex min-h-dvh w-full min-w-[320px] flex-col bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
       >
-        {/* Page Content */}
         <main id="page-content" className="flex max-w-full flex-auto flex-col">
           <div className="relative mx-auto flex min-h-dvh w-full max-w-10xl items-center justify-center overflow-hidden p-4 lg:p-8">
-            {/* Sign In Section */}
             <section className="w-full max-w-xl py-6">
-              {/* Header */}
               <header className="mb-10 text-center">
                 <h1 className="mb-2 inline-flex items-center gap-2 text-2xl font-bold">
                   <svg
@@ -55,9 +52,7 @@ const Form: React.FC<Props> = ({ type, onSubmit }) => {
                   your dashboard
                 </h2>
               </header>
-              {/* END Header */}
 
-              {/* Sign In Form */}
               <div className="flex flex-col overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800 dark:text-gray-100">
                 <div className="grow p-5 md:px-16 md:py-12">
                   <form onSubmit={handleSubmit} className="space-y-6">

@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import Card from "../../globals/components/Card/Card";
 import Footer from "../../globals/components/footer/Footer";
 import Navbar from "../../globals/components/navbar/Navbar";
 
 const Home = () => {
+  // const token = localStorage.getItem("jwt_token");
   return (
     <div>
       <>
@@ -14,7 +14,6 @@ const Home = () => {
             id="page-header"
             className="relative flex flex-none items-center py-8"
           >
-            <Navbar />
             {/* Main Header Content */}
             <div className="container mx-auto flex flex-col gap-4 px-4 text-center sm:flex-row sm:items-center sm:justify-between sm:gap-0 lg:px-8 xl:max-w-7xl">
               <div>
@@ -38,26 +37,7 @@ const Home = () => {
                   <span>Company</span>
                 </a>
               </div>
-              <nav className="space-x-3 md:space-x-6">
-                <Link
-                  to="/login"
-                  className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400"
-                >
-                  <span>Login</span>
-                </Link>
-                <Link
-                  to="/register"
-                  className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400"
-                >
-                  <span>Register</span>
-                </Link>
-                <Link
-                  to="/logout"
-                  className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400"
-                >
-                  <span>Logout</span>
-                </Link>
-              </nav>
+              <Navbar />
             </div>
             {/* END Main Header Content */}
           </header>

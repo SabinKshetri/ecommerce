@@ -40,6 +40,7 @@ class AuthController {
       });
       return;
     }
+
     const isMatched = bcrypt.compareSync(password, data.password);
     if (!isMatched) {
       res.status(403).json({

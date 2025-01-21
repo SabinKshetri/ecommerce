@@ -8,7 +8,7 @@ interface RegisterData {
   password: string;
 }
 
-enum Status {
+export enum Status {
   Loading = "loading",
   Success = "success",
   Error = "error",
@@ -47,9 +47,15 @@ const authSlice = createSlice({
     setStatus(state: AuthState, action: PayloadAction<string>) {
       state.status = action.payload;
     },
+    resetStatus(state: AuthState) {
+      state.status = Status.Loading;
+    },
+    setToken(state: AuthState, action: PayloadAction<string>) {
+      state.user.token = action.payload;
+    },
   },
 });
-export const { setUser, setStatus } = authSlice.actions;
+export const { setUser, setStatus, resetStatus, setToken } = authSlice.actions;
 export default authSlice.reducer;
 
 export function register(data: RegisterData) {
@@ -73,8 +79,11 @@ export function login(data: LoginData) {
     dispatch(setStatus(Status.Loading));
     try {
       const response = await API.post("login", data);
+      console.log(response);
       if (response.status == 200) {
         dispatch(setStatus(Status.Success));
+        dispatch(setToken(response.data.token));
+        localStorage.setItem("jwt_token", response.data.token);
       } else {
         dispatch(setStatus(Status.Error));
       }
