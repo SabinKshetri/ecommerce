@@ -5,6 +5,7 @@ import Register from "./pages/auth/register/Register";
 import Login from "./pages/auth/login/Login";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import SingleProduct from "./pages/singleProduct/SingleProduct";
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/product/:id" element={<SingleProduct />} />
           </Routes>
         </BrowserRouter>
       </Provider>

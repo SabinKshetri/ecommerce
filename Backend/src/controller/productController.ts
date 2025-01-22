@@ -18,7 +18,8 @@ class ProductController {
     if (req.file) {
       fileName = req.file?.filename;
     } else {
-      fileName = "https://images.app.goo.gl/U4pUDyJ9FnEAFjkc8";
+      fileName =
+        "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fimage&psig=AOvVaw0f6DD7zA-7sCgHhTjuE0CW&ust=1737625289849000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJifqeOEiYsDFQAAAAAdAAAAABAE";
     }
     if (
       !productName ||
@@ -37,7 +38,7 @@ class ProductController {
       productDescription,
       productPrice,
       productTotalStockQty,
-      productImageUrl: fileName,
+      productImageUrl: "http://localhost:3000" + fileName,
       userId: userId,
       categoryId: categoryId,
     });
