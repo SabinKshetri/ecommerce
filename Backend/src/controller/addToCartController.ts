@@ -6,9 +6,10 @@ import { Response } from "express";
 class cartController {
   async addToCart(req: AuthRequest, res: Response): Promise<void> {
     const userId = req.user?.id;
-    const { qauntity, productId } = req.body;
-    if (!qauntity || !productId) {
-      res.status(400).json({
+    console.log(req.body);
+    const { quantity, productId } = req.body;
+    if (!quantity || !productId) {
+      res.status(404).json({
         message: "Please Provide Quantity & ProductId",
       });
     }
@@ -20,18 +21,22 @@ class cartController {
       },
     });
     if (cartItem) {
-      cartItem.quantity += qauntity;
+      cartItem.quantity += quantity;
       await cartItem.save();
     } else {
       cartItem = await Cart.create({
-        qauntity,
+        quantity,
         userId,
         productId,
       });
     }
+    const product = await Product.findByPk(productId);
     res.status(200).json({
       message: "Product added to cart",
-      data: cartItem,
+      data: {
+        ...cartItem.toJSON(),
+        product: product?.toJSON(),
+      },
     });
   }
   async getCartItem(req: AuthRequest, res: Response): Promise<void> {

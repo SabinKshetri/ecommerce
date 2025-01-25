@@ -7,4 +7,13 @@ const API = axios.create({
     Accept: "application/json",
   },
 });
-export default API;
+
+const AuthenticatedAPI = axios.create({
+  baseURL: "http://localhost:3000",
+  headers: {
+    "Content-Type": "application.json",
+    Accept: "application/json",
+    Authorization: `${localStorage.getItem("jwt_token")}`,
+  },
+});
+export { API, AuthenticatedAPI };

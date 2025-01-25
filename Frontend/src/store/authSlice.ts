@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import API from "../http";
+import { API } from "../http";
 
 interface RegisterData {
   username: string;

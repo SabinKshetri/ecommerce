@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useEffect, useState } from "react";
+import { fetchCartItems } from "../../../store/cartSlice";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
+  const { items } = useAppSelector((state) => state.carts);
   useEffect(() => {
     const token = localStorage.getItem("jwt_token");
     setIsLoggedIn(!!token || !!user.token);
@@ -17,6 +19,11 @@ const Navbar = () => {
     navigate("/login");
     setIsLoggedIn(false);
   };
+
+  useEffect(() => {
+    dispatch(fetchCartItems());
+  }, []);
+
   return (
     <div>
       <nav className="space-x-3 md:space-x-6">
